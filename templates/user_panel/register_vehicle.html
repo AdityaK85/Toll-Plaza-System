@@ -1,0 +1,117 @@
+{% extends "layout/base.html" %}
+{% load static  %}
+{% block Title %} Vehicle Registration {% endblock %}
+
+
+{% block Content %} 
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">
+            {% if veh_obj.id %}
+              Modify Vehicle Details
+            {% else %}
+              New Vehicle Registration
+            {% endif %}
+            </h4>
+            <form class="form-sample">
+              <p class="card-description">
+                Vehicle info
+              </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form">Vehicle Number</label>
+                    <div class="col-sm-12">
+                      <input type="text" value="{{veh_obj.vehicle_no}}" class="form-control" id="vehicle_no" >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form">Vehicle Type</label>
+                    <div class="col-sm-12">
+                      <input type="text" value="{{veh_obj.vehicle_type}}" class="form-control" id="vehicle_type">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-6 col-form">Owner Information</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control"  value="{{veh_obj.owner_info}}"  id="owner_info">
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form">Registration Number</label>
+                    <div class="col-sm-12">
+                      <input class="form-control" type="text" value="{{veh_obj.registration_no}}" placeholder="Registration No" id="registration_no">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form">Vehicle Color</label>
+                    <div class="col-sm-12">
+                      <input type="text" value="{{veh_obj.vehicle_color}}" class="form-control" id="vehicle_color" >
+                    </div> 
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form">Payment Preference</label>
+                    <div class="col-sm-12">
+                      <input type="text" value="{{veh_obj.payment_pefernce}}" class="form-control" id="payment_pefernce">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form">Insurance</label>
+                    <div class="col-sm-12">
+                      <input type="text" value="{{veh_obj.insurance}}" class="form-control" id="insurance" >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row float-end my-5">
+                    <div class="col-sm-2">
+                        <button type="button" onclick="SaveDetails('{{veh_obj.id}}')" class="btn btn-primary btn-sm">
+                        {% if veh_obj.id %}
+                          Modify
+                        {% else %}
+                          Register
+                        {% endif %} </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+</div>
+
+{% endblock %}
+
+ {% block CustomScripts %}
+
+ {% endblock  %}
+
+
+{% block CustomJs %}
+    <script type="module" src="{% static 'user_panel/register_veh.js' %} "></script>
+    <script>
+    $("#register_veh").addClass('active')
+    </script>
+{% endblock  %}

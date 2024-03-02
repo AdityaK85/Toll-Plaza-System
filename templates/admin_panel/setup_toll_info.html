@@ -1,0 +1,104 @@
+{% extends "layout/base.html" %}
+{% load static  %}
+{% block Title %} Setup {% endblock %}
+
+
+{% block Content %} 
+
+<div class="row">
+    <div class="col-md-5 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Setup Toll Information</h4>
+            <div class="form-group">
+              <label>Vehicle Type <small>(e.g car, travles, trucks)</small> </label>
+              <input type="text" class="form-control form-control-lg" id="vehicle_type" placeholder="Vehicle Type" aria-label="Username">
+            </div>
+           
+            <div class="form-group">
+              <label>Toll Amount</label>
+              <input type="text" class="form-control form-control-lg" id="toll_amt" oninput="this.value = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10"  placeholder="Toll Amount" aria-label="Username">
+            </div>
+           
+            <div class="form-group">
+              <label>Total Hour Valid Toll  </label>
+              <input type="text" class="form-control form-control-lg" id="valid_toll_hr" oninput="(function(input) { input.value = input.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1'); if (parseFloat(input.value) > 24) input.value = ''; })(this)" maxlength="10" placeholder="Hours" aria-label="Username">
+            </div>
+
+            <div class="form-group float-end">
+                <div class="input-group-append">
+                    <button class="btn btn-sm btn-primary" onclick="SaveDetails('{{toll_obj.id}}')" type="button">Save</button>
+                </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Toll Info</h4>
+            <div class="table-responsive">
+            {% if toll_obj %}
+            
+              <table class="table table-hover responsive ">
+                <thead>
+                  <tr>
+                    <th>Sr.no</th>
+                    <th>Vehicle Type</th>
+                    <th>Amount</th>
+                    <th>Valid Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    {% for i in toll_obj %}
+                    
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.vehicle_type}}</td>
+                            <td><label class="badge badge-danger">{{i.toll_amt}}</label></td>
+                            <td>{{i.valid_toll_hr}} hr</td>
+                            <td><i class="mdi mdi-delete" onclick="delete_recored('{{i.id}}')" style="font-size: 22px; color: red;cursor: pointer;" ></i></td>
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+              </table>
+
+              
+            {% else %}
+
+                <div class="card" style="text-align: center;">
+                    <div class="card-body">
+                        <h4 class="card-title">No Data Found</h4>
+                    </div>
+                </div>
+
+            {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+{% endblock %}
+
+ {% block CustomScripts %}
+
+ <script type="module" src="{% static 'admin_panel/setup_toll.js' %} "></script>
+    <script>
+    $("#setup_toll_info").addClass('active')
+    </script>
+
+
+ {% endblock  %}
+
+
+{% block CustomJs %}
+
+
+{% endblock  %}

@@ -1,7 +1,5 @@
 import {log, callAjax, sweetAlertMsg, showToastMsg} from '../CommonJS/common.js';
 
-log("::::::: JS FOUND:::::::;")
-
 
 
 window.LoginUser = async function(){

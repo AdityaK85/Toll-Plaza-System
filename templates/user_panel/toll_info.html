@@ -1,0 +1,74 @@
+{% extends "layout/base.html" %}
+{% load static  %}
+{% block Title %} Setup {% endblock %}
+
+
+{% block Content %} 
+
+<div class="row">
+
+<div class="col-lg-7 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Toll Info</h4>
+            <div class="table-responsive">
+                {% if toll_obj %}
+                
+                    <table class="table table-hover responsive ">
+                    <thead>
+                        <tr>
+                        <th>Sr.no</th>
+                        <th>Vehicle Type</th>
+                        <th>Amount</th>
+                        <th>Valid Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for i in toll_obj %}
+                        
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{i.vehicle_type}}</td>
+                                <td><label class="badge badge-danger">{{i.toll_amt}}</label></td>
+                                <td>{{i.valid_toll_hr}} hr</td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                    </table>
+
+                    
+                {% else %}
+
+                    <div class="card" style="text-align: center;">
+                        <div class="card-body">
+                            <h4 class="card-title">No Data Found</h4>
+                        </div>
+                    </div>
+
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+ {% block CustomScripts %}
+
+ <script type="module" src="{% static 'admin_panel/toll_info.js' %} "></script>
+<script>
+    $("#toll_info").addClass('active')
+</script>
+
+
+ {% endblock  %}
+
+
+{% block CustomJs %}
+
+
+{% endblock  %}

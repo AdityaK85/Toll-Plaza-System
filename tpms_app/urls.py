@@ -8,12 +8,29 @@ from django.conf.urls.static import static
 admin_url = [
     path('user_login/', user_login ), 
     path('dashboard/', dashboard ),
+    path('register_vehicle/', register_vehicle ),
+    path('manage_vehicle/', manage_vehicle ),
+    path('setup_toll_info/', setup_toll_info ),
+    path('toll_info/', toll_info ),
+    path('toll_collection/', toll_collection ),
+    path('modify_details/<int:id>', modify_details ),
+    path('toll_collection_history/', toll_collection_history ),
+    path('profile/', profile ),
     path('index/', index ),
 ]
 
 
 ajax_url = [
-    path('UserLogin/', user_login_aj)
+    path('UserLogin/', user_login_aj),
+    path('logout/', logout),
+    path('Save_Vehicle_Details/', Save_Vehicle_Details),
+    path('Save_Toll_info/', Save_Toll_info),
+    path('Delete_Record/', Delete_Record),
+    path('Delete_Toll_Record/', Delete_Toll_Record),
+    path('Get_Tax_Amout/', Get_Tax_Amout),
+    path('CashCollected/', CashCollected),
+    path('Delete_Toll_Collected_Record/', Delete_Toll_Collected_Record),
+    path('Save_Profile_Changes/', Save_Profile_Changes),
 ]
 
 

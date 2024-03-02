@@ -11,3 +11,16 @@ class AdminDetailsAdmin(admin.ModelAdmin):
 @admin.register(UserDetails)
 class UserDetailsAdmin(admin.ModelAdmin):
     list_display = ('id', 'email', 'phone', 'username' , 'password', 'created_dt' )
+
+@admin.register(VehicleMaster)
+class VehicleMasterAdmin(admin.ModelAdmin):
+    list_display = ('id', 'vehicle_no', 'vehicle_type', 'owner_info' , 'registration_no', 'vehicle_color' , 'payment_pefernce' , 'insurance' , 'created_dt' )
+
+
+@admin.register(TollInfo)
+class TollInfoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'vehicle_type', 'toll_amt', 'valid_toll_hr' )
+
+@admin.register(TollCollection)
+class TollCollectionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'vehicle_identification', 'vehicle_type', 'fee_sehedule' , 'payment_by' , 'lane_code' )

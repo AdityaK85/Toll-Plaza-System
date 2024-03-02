@@ -1,0 +1,40 @@
+<table id="datatable" class="table table-bordered" id="toll_hist_tbl" >
+        <thead>
+            <tr> 
+                <th> Sr.no </th>
+                <th> Indentification </th>
+                <th> Vehicle No. </th>
+                <th> Type</th>
+                <th> Amount</th>
+                <th>Payment By</th>
+                <th>Lane Code</th>
+                <th> Action </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for i in toll_obj %}
+            
+            
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>
+                {% if i.vehicle_identification == 'License Plate Recognition'  %}
+                    LPR
+                {% else %}
+                    ETC
+                {% endif %} </td>
+                <td>{{i.veh_no}}</td>
+                <td>{{i.vehicle_type}}</td>
+                <td>{{i.fee_sehedule}}</td>
+                <td>{{i.payment_by}}</td>
+                <td>{{i.lane_code}}</td>
+                <td>
+                    <a onclick="delete_recored('{{i.id}}')" class="btn btn-danger btn-sm " ><i class="mdi mdi-delete" ></i> Delete</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+    </tbody>
+</table>

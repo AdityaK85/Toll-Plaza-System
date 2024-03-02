@@ -8,7 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>TPS | {% block Title %}  {% endblock  %} </title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css" integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.material.min.css" integrity="sha512-xvrm5KqgBtR7kE0ehXfSSkQvzArzm/iBSx6aXcINru5dM0YWCaqrHfsN1PHCQBgL03/7fJHqypWZoA5w0T6lMA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+
   <link rel="stylesheet" href="{% static 'vendors/feather/feather.css' %} ">
   <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %} ">
   <link rel="stylesheet" href="{% static 'vendors/ti-icons/css/themify-icons.css' %} ">
@@ -24,6 +27,15 @@
   <link rel="stylesheet" href="{% static 'css/vertical-layout-light/style.css' %} ">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
+
+<style>
+
+      {% block CustomStyle %}
+      
+      {% endblock  %}
+
+</style>
+
 </head>
 
 
@@ -210,8 +222,9 @@
   <script src="{% static 'vendors/js/vendor.bundle.base.js' %} "></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    
   <script src="{% static 'vendors/chart.js/Chart.min.js' %} "></script>
   <script src="{% static 'vendors/bootstrap-datepicker/bootstrap-datepicker.min.js' %} "></script>
   <script src="{% static 'vendors/progressbar.js/progressbar.min.js' %} "></script>
@@ -227,6 +240,7 @@
   <!-- Custom js for this page-->
   <script src="{% static 'js/dashboard.js' %} "></script>
   <script src="{% static 'js/Chart.roundedBarCharts.js' %} "></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- End custom js for this page-->
   {% block CustomScripts %}
   

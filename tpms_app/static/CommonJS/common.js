@@ -101,7 +101,8 @@ export async function fieldsValidator(fields, type='err_class')
 				}
 				else
 				{
-					$(`#${field}`).addClass("error_class");
+					// $(`#${field}`).addClass("error_class");
+					showToastMsg('Error', 'This field is required.')
 				}
 				$(`#${field}`).focus();
 				return false;

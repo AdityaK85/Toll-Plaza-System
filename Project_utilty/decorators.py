@@ -1,30 +1,11 @@
 import traceback
 from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
-from tpms_app.models import UserDetails
+from tpms_app.models import *
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from functools import wraps
 
-
-
-### check request is authenticated or not 
-def is_authenticated(request):
-    try:
-        user_type = request.session.get('user_type')
-        user_id = request.session.get('user_id')
-		
-        if user_type and user_id:
-            if user_type == 'user':
-                user_obj = UserDetails.objects.get(id=user_id)
-            else:
-                user = UserDetails.objects.get(id=user_id)
-            return user
-        else:
-            return None
-    except:
-        traceback.print_exc()
-    return None
 
 def is_admin_authenticated(request):
     try:
@@ -34,15 +15,36 @@ def is_admin_authenticated(request):
 		
         if user_type and user_id:
             if user_type == 'admin':
-                user = UserDetails.objects.get(id=user_id)
+                user = AdminDetails.objects.get(id=user_id)
             else:
-                user = UserDetails.objects.get(id=user_id)
+                user = AdminDetails.objects.get(id=user_id)
             return user
         else:
             return None
     except:
         traceback.print_exc()
     return None
+
+
+
+### check request is authenticated or not 
+def is_authenticated(request):
+	try:
+		user_type = request.session.get('user_type')
+		user_id = request.session.get('user_id')
+
+		if user_type and user_id:
+			if user_type == 'user':
+				user = UserDetails.objects.get(id=user_id)
+			else:
+				user = AdminDetails.objects.get(id=user_id)
+			return user
+		else:
+			return None
+	except:
+		traceback.print_exc()
+		return None
+
 
 
 
@@ -66,15 +68,19 @@ def handle_page_exception(func):
 	def wrapper(request, *args, **kwargs):
 		try:
 			user = is_authenticated(request)
-			
+			# Add New this lines 
 			if user:
-				print(user, '>>>>>>>.')
-				if user.status == 'Blocked':
-					return redirect('/logout_admin/')
+				login_type = request.session['user_type']   # New 
+				return func(request, user, login_type,  *args, **kwargs)
+			
+			elif is_admin_authenticated(request):
 				
-				return func(request, user, *args, **kwargs)
+				login_type = request.session['admin_user_type']    # New Line
+				user = is_admin_authenticated(request)
+
+				return func(request, user, login_type ,  *args, **kwargs)
 			else:
-				return redirect('/')
+				return redirect('/user_login')
 		except:
 			traceback.print_exc()
 		return HttpResponse('Something went wrong')

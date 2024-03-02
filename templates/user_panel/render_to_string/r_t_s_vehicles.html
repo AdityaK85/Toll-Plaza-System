@@ -1,0 +1,32 @@
+<table class="table table-striped" id="veh_tbl" >
+        <thead>
+            <tr> 
+                <th> Sr.no </th>
+                <th> Vehicle No. </th>
+                <th> Type</th>
+                <th> Owner</th>
+                <th> Registration No </th>
+                <th> Action </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for i in veh_obj %}
+            
+            
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.vehicle_no}}</td>
+                <td>{{i.vehicle_type}}</td>
+                <td>{{i.owner_info}}</td>
+                <td>{{i.registration_no}}</td>
+                <td>
+                    <a href="/modify_details/{{i.id}}" class="btn btn-info btn-sm " ><i class="mdi mdi-eye" ></i> Modify </a>
+                    <a onclick="delete_recored('{{i.id}}')" class="btn btn-danger btn-sm " ><i class="mdi mdi-delete" ></i> Delete</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+    </tbody>
+</table>
