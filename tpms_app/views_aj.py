@@ -127,3 +127,6 @@ def Save_Profile_Changes(request):
         send_data = {'status':0 , 'msg' : 'Something went wrong.'}
     return JsonResponse(send_data)
 
+def Changed_pwd(request):
+    user_id = request.POST.get("user_id")
+    reason_txt = request.POST.get("reason_txt")
