@@ -1,0 +1,76 @@
+{% extends "layout/base.html" %}
+{% load static  %}
+{% block Title %} Employee {% endblock %}
+
+
+{% block Content %} 
+
+
+
+<div class="row">
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+              <a href="/new_employe" class="float-end btn btn-primary btn-sm" >Add </a>
+            <h4 class="card-title">Total Employee's</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>  Profile</th>
+                    <th>  Username</th>
+                    <th>  Email</th>
+                    <th>  Mobile</th>
+                    <th>  Salary</th>
+                    <th>  Joined Date</th>
+                    <th>  Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    {% for i in employee %}
+                        <tr>
+                            <td class="py-1">
+                            <img src="{% if i.profile %} {{i.profile.url}} {% else %} {% static 'images\defaultImg.jpg' %} {% endif %} "  alt="image"/>
+                            </td>
+                            <td>  {% if i.username %} {{i.username}} {% else %} N/A {% endif %} </td>
+                            <td>  {% if i.email %}  {{i.email}}  {% else %}  N/A  {% endif %}</td>
+                            <td>  {% if i.phone %}  {{i.phone}}  {% else %}  N/A  {% endif %}</td>
+                            <td> {% if i.salary %} {{i.salary}} /- {% else %} N/A {% endif %} </td>
+                            <td> {% if i.created_dt %} {{i.created_dt|date:'d-M-Y'}} {% else %} {% endif %}  </td>
+                            <td> 
+                              {% if i.status == 'Blocked' %}
+                                <a role="button" onclick="blockUser('{{i.id}}' , 'Unblock')" class="btn btn-sm btn-success" > <i class="mdi mdi-account-off" ></i> </a>   
+                                {% else %}
+                                <a role="button" onclick="blockUser('{{i.id}}', 'Block')" class="btn btn-sm btn-warning" > <i class="mdi mdi-block-helper" ></i> </a>   
+                              {% endif %}
+
+                                <a href="/EditEmp/{{i.id}}" class="btn btn-sm btn-info" > <i class="mdi mdi-table-edit" ></i> </a>   
+                                <a role="button" onclick="DeleteEmp('{{i.id}}')"  class="btn btn-sm btn-danger" > <i class="mdi mdi-delete" ></i> </a>   
+                            </td>
+                        </tr>      
+                    {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+
+{% endblock %}
+
+ {% block CustomScripts %}
+ <script type="module" src="{% static 'user_panel/add_employee.js' %} "></script>
+ {% endblock  %}
+
+
+{% block CustomJs %}
+<script>
+$("#employee").addClass('active')
+</script>
+{% endblock  %}

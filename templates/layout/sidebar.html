@@ -3,6 +3,40 @@
 
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
+
+        {% if login_type == 'admin' %}
+    
+            <li class="nav-item" id="dashboard">
+                <a class="nav-link " href="/Dashboard">
+                    <i class="mdi mdi-grid-large menu-icon"></i>
+                    <span class="menu-title">Dashboard</span>
+                </a>
+            </li>
+            
+        {% endif %}
+
+        {% if login_type == 'admin' %}
+    
+            <li class="nav-item" id="employee">
+                <a class="nav-link " href="/employee">
+                    <i class="mdi mdi-grid-large menu-icon"></i>
+                    <span class="menu-title">Employee</span>
+                </a>
+            </li>
+            
+        {% endif %}
+
+
+        {% if login_type == 'admin' %}
+    
+            <li class="nav-item" id="request">
+                <a class="nav-link " href="/request">
+                    <i class="mdi mdi-grid-large menu-icon"></i>
+                    <span class="menu-title">Password Request {% if request_count %} <span class=" mx-2" style=" background: red;color: white !important;font-weight: 700;padding: 2px;border-radius: 101%;width: 16px !important;display: inline-grid;" >  {{request_count}} </span> {% endif %}</span>
+                </a>
+            </li>
+            
+        {% endif %}
        
         <li class="nav-item" id="register_veh">
             <a class="nav-link " href="/register_vehicle">
@@ -52,12 +86,14 @@
             </a>
         </li>
 
+    {% if login_type != 'admin' %}
         <li class="nav-item" id="profile_div">
             <a class="nav-link " href="/profile">
                 <i class="mdi mdi-grid-large menu-icon"></i>
                 <span class="menu-title">Profile</span>
             </a>
         </li>
+    {% endif %}
 
     </ul>
 </nav>

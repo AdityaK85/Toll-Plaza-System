@@ -14,11 +14,13 @@ def user_login_aj(request):
         request.session['user_id'] = user_obj.id
         request.session['user_type'] = 'user'
         send_data = {'status': 1 , 'msg' : 'Successfully Login...' }
+        type = 'user'
     elif AdminDetails.objects.filter(username = username , password = password).exists():
         user_obj = AdminDetails.objects.get(username = username , password = password)
         request.session['admin_user_id'] = user_obj.id
         request.session['admin_user_type'] = 'admin'
-        send_data = {'status': 1 , 'msg' : 'Admin Login Successfully...' }
+        type = 'admin'
+        send_data = {'status': 1 , 'msg' : 'Admin Login Successfully...' , 'type':type}
     else:
         send_data = {'status': 0 , 'msg' : 'Invalid Credentials' }
     return JsonResponse(send_data)
@@ -49,6 +51,25 @@ def Save_Vehicle_Details(request):
     return JsonResponse(send_data)
 
 
+@csrf_exempt
+@handle_ajax_exception
+def Add_Employee(request):
+    data = request.POST.dict()
+    val_id = request.POST.get('val_id')
+    data.pop('val_id')
+    print(data)
+    if val_id != "" and UserDetails.objects.filter(id = val_id).exists() :
+        UserDetails.objects.filter(id = val_id).update(**data)
+        msg = 'Employee Details updated'
+    else:
+        obj = UserDetails.objects.create(**data)
+        obj.status = 'Unblocked'
+        obj.save()
+        msg = 'Employee Added'
+    send_data = {'status': 1 , 'msg' : msg }
+    return JsonResponse(send_data)
+
+
 
 @csrf_exempt
 @handle_ajax_exception
@@ -69,6 +90,14 @@ def Save_Toll_info(request):
 def Delete_Record(request):
     id = request.POST.get("id")
     VehicleMaster.objects.filter(id = id).delete()
+    return JsonResponse({'status':1, 'msg': "Recored Removed"})
+
+
+@csrf_exempt
+@handle_ajax_exception
+def Delete_Employee(request):
+    id = request.POST.get("id")
+    UserDetails.objects.filter(id = id).delete()
     return JsonResponse({'status':1, 'msg': "Recored Removed"})
 
 
@@ -127,6 +156,29 @@ def Save_Profile_Changes(request):
         send_data = {'status':0 , 'msg' : 'Something went wrong.'}
     return JsonResponse(send_data)
 
-def Changed_pwd(request):
-    user_id = request.POST.get("user_id")
-    reason_txt = request.POST.get("reason_txt")
+
+@csrf_exempt
+@handle_ajax_exception
+def SendRequest(request):
+    user_id = request.POST.get('user_id')
+    request_txt = request.POST.get('request_txt')
+    PasswordRequest.objects.create(fk_user_id = user_id , reason = request_txt , status = 'PENDING')
+    return JsonResponse({'status':1, 'msg': 'Password Request Send Successfully...'})
+
+@csrf_exempt
+@handle_ajax_exception
+def Block_Employee(request):
+    user_id = request.POST.get('user_id')
+    type = request.POST.get('type')
+    UserDetails.objects.filter(id = user_id ).update(status = type)
+    return JsonResponse({'status':1, 'msg': 'Employee Data Changed Successfully...'})
+
+
+@csrf_exempt
+@handle_ajax_exception
+def Change_Employee(request):
+    user_id = request.POST.get('user_id')
+    password = request.POST.get('password')
+    UserDetails.objects.filter(id = user_id ).update(password = password)
+    PasswordRequest.objects.filter(fk_user_id = user_id).update(status = 'COMPLETED')
+    return JsonResponse({'status':1, 'msg': 'Password Changed Successfully...'})

@@ -20,7 +20,14 @@ window.LoginUser = async function(){
         
         var response = await callAjax('/UserLogin/', data )
         if (response.status == 1){
-            location.href = '/dashboard'
+            if (response.type == 'Admin') {
+
+                location.href = '/Dashboard'
+            }
+            else{
+                
+                location.href = '/register_vehicle'
+            }
         }
         else {
             showToastMsg('Error', "Invalid Credentials", 'error')

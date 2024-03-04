@@ -1,0 +1,96 @@
+{% extends "layout/base.html" %}
+{% load static  %}
+{% block Title %} Employee {% endblock %}
+
+
+{% block Content %} 
+
+
+
+<div class="row">
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+            <h4 class="card-title">Password Requests</h4>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>  Sr.no</th>
+                    <th>  Username</th>
+                    <th>  Reason</th>
+                    <th>  Stats</th>
+                    <th>  Request On Date</th>
+                    <th>  Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    {% for i in request_obj %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>  {% if i.fk_user.username %} {{i.fk_user.username}} {% else %} N/A {% endif %} </td>
+                            <td>  {% if i.reason %}  {{i.reason}}  {% else %}  N/A  {% endif %}</td>
+                            <td>  {% if i.status %}  <label class="badge badge-danger">{{i.status}} </label> {% else %}  N/A  {% endif %}</td>
+                            <td> {% if i.created_dt %} {{i.created_dt|date:'d-M-Y'}} {% else %} {% endif %}  </td>
+                            <td>
+                                <a role="button" onclick="NewPassModel('{{i.id}}')" > <i class="mdi mdi-eye " style="font-size: 20px; color: black;" ></i> </a>
+                            </td>
+                        </tr>      
+                    {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+
+<!-- Change Password -->
+
+<div class="modal fade" id="NewPassModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Set New Password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="" id="user_id" >
+          <div class="row">
+            <div class="col-12">
+                <div class="md-3">
+                    <label for="">New Password </label>
+                    <input type="text" name="" class="form-control" id="password">
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" onclick="ChangePassword()" class="btn btn-primary">Changed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+ {% block CustomScripts %}
+ <script type="module" src="{% static 'user_panel/add_employee.js' %} "></script>
+ {% endblock  %}
+
+
+{% block CustomJs %}
+<script>
+$("#request").addClass('active')
+</script>
+{% endblock  %}

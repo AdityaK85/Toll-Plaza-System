@@ -21,6 +21,11 @@ class VehicleMasterAdmin(admin.ModelAdmin):
 class TollInfoAdmin(admin.ModelAdmin):
     list_display = ('id', 'vehicle_type', 'toll_amt', 'valid_toll_hr' )
 
+
+@admin.register(PasswordRequest)
+class PasswordRequestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'fk_user', 'reason', 'created_dt' )
+
 @admin.register(TollCollection)
 class TollCollectionAdmin(admin.ModelAdmin):
     list_display = ('id', 'vehicle_identification', 'vehicle_type', 'fee_sehedule' , 'payment_by' , 'lane_code' )

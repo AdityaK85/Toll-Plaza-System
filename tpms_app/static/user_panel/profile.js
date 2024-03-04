@@ -7,36 +7,47 @@ $('#myModal').on('shown.bs.modal', function () {
 })
 
 
-window.showUserModel = function(email, phone , discription ) {
-    $(`#email`).val(email)
-    $(`#phone`).val(phone)
-    $(`#discription`).val(discription)
+window.showUserModel = function(email , phone , about) {
+    $("#email").val(email)
+    $("#phone").val(phone)
+    $("#discription").val(about)
     var model = new bootstrap.Modal(document.getElementById('exampleModal'))
     model.show()
   }
 
-window.RequestModel = function(user_id) {
+
+window.RequestModel = function() {
     var model = new bootstrap.Modal(document.getElementById('requestModel'))
     model.show()
   }
 
-
-
-window.ChangePwd = async function(user_id){
-    var reason_txt = $("#reason_txt").val()
-    var data = {
-        'reason_txt': reason_txt,
-        'user_id': user_id
-    }
-    var response = await callAjax('/Changed_pwd/' , data , this , 'Sending' , 'Request Send' )
-    if (response.status == 1){
-        await showToastMsg('Success', response.msg , 'success')
+window.SendRequest = async function(user_id){
+    var request_txt = $("#request_text").val()
+    if (request_txt.trim() == ""){
+        showToastMsg("Error", "Please Enter Reason For Changing Password")
+        request_txt.focus()
     }
     else{
-        await showToastMsg('Error', 'Something went wrong ! Please try again later')
-    }
+        var data = {
+            'user_id' : user_id ,
+            'request_txt' : request_txt
+        }
+        var response = await callAjax('/SendRequest/', data)
+        if (response.status == 1) {
+            showToastMsg("Success" , response.msg , 'success')
+            await new Promise(resolve => setTimeout(resolve , 1200));
+            location.reload()
 
+        }
+        else {
+            showToastMsg("Error" , 'Something went wrong' , 'error')
+        }
+
+    }
 }
+
+
+
 
   window.SaveChanges = async function(user_id, user){
 

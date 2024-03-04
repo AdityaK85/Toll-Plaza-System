@@ -1,0 +1,50 @@
+{% extends "layout/base.html" %}
+{% load static  %}
+{% block Title %} Add Employee {% endblock %}
+
+
+{% block Content %} 
+
+
+<div class="row justify-content-center">
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Add Employee</h4>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label for="exampleInputUsername1">Username</label>
+                        <input type="text" class="form-control" value="{{emp_obj.username}}"  id="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" value="{{emp_obj.email}}" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="text" class="form-control" value="{{emp_obj.password}}" id="password" placeholder="Password">
+                    </div>
+                    <button type="button" onclick="AddEmployee(this , '{{emp_obj.id}}')" class="btn btn-primary me-2"> {% if emp_obj %} Update {% else %} Add {% endif %}</button>
+                    <a href="/employee" class="btn btn-light">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+            
+            
+                    
+
+{% endblock %}
+
+ {% block CustomScripts %}
+<script type="module" src="{% static 'user_panel/add_employee.js' %} "></script>
+ {% endblock  %}
+
+
+{% block CustomJs %}
+
+<script>
+$("#employee").addClass('active')
+</script>
+{% endblock  %}
