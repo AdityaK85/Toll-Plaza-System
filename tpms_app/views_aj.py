@@ -42,12 +42,14 @@ def Save_Vehicle_Details(request):
     data = request.POST.dict()
     val_id = request.POST.get('val_id')
     data.pop('val_id')
-    print(data)
+    msg = 'Vehicle Registered'
     if val_id != "" and VehicleMaster.objects.filter(id = val_id).exists() :
         VehicleMaster.objects.filter(id = val_id).update(**data)
+        msg = 'Vehicle Modified'
     else:
         VehicleMaster.objects.create(**data)
-    send_data = {'status': 1 , 'msg' : f'Vehicle { 'Modified' if val_id != '' else 'Registered' }   Successfully' }
+        msg = 'Vehicle Registered'
+    send_data = {'status': 1 , 'msg' : msg }
     return JsonResponse(send_data)
 
 
@@ -77,12 +79,15 @@ def Save_Toll_info(request):
     data = request.POST.dict()
     val_id = request.POST.get('val_id')
     data.pop('val_id')
+    msg = 'Vehicle Registered Successfully'
 
     if val_id != "" and TollInfo.objects.filter(id = val_id).exists() :
         TollInfo.objects.filter(id = val_id).update(**data)
+        msg = 'Vehicle Modified Successfully'
     else:
         TollInfo.objects.create(**data)
-    send_data = {'status': 1 , 'msg' : f'Vehicle { 'Modified' if val_id != '' else 'Registered' }   Successfully' }
+        msg = 'Vehicle Registered Successfully'
+    send_data = {'status': 1 , 'msg' :msg }
     return JsonResponse(send_data)
     
 @csrf_exempt
