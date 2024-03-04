@@ -33,7 +33,7 @@ def logout(request):
     except:
         del request.session['admin_user_id']
         del request.session['admin_user_type']
-    return redirect('/user_login')
+    return redirect('/')
 
 
 @csrf_exempt
