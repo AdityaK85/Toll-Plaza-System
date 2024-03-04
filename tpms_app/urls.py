@@ -6,7 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 admin_url = [
-    path('user_login/', user_login ), 
+    path('', user_login ), 
     path('web_home/', web_home ), 
     path('Dashboard/', dashboard ),
     path('employee/', employee ),
